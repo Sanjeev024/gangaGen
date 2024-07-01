@@ -1,0 +1,68 @@
+{% extends "header.html" %} {% block body %}
+
+ 
+
+<div class="row">
+    <div class="col-md-2">
+        <div
+        class="d-flex flex-column py-3 sidebar"
+        style="width: 285px; min-height: 55rem"
+      >
+        <ul class="nav nav-pills flex-column mb-auto sidebar-options">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#home"></use>
+              </svg>
+              Explore Database
+            </a>
+          </li>
+          <hr />
+          <li>
+            <a href="/search_sequence" class="nav-link">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#speedometer2"></use>
+              </svg>
+              Search Sequence
+            </a>
+          </li>
+          <hr />
+          <li>
+            <a href="#" class="nav-link">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#table"></use>
+              </svg>
+              Saved Queries
+            </a>
+          </li>
+          <hr />
+          <li>
+            <a href="/logout" class="nav-link">
+              <svg class="bi pe-none me-2" width="16" height="16">
+                <use xlink:href="#grid"></use>
+              </svg>
+              Logout
+            </a>
+          </li>
+          <hr />
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-10">
+        
+    <div class="container-fluid">
+        {% block layout-body %}
+        
+        {% endblock layout-body %}
+        
+    </div>
+       
+    
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}

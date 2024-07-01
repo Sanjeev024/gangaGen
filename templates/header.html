@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GangaGen</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'home.css' %}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Arca+Majora+3+Heavy&display=swap">
+
+    <link
+      href="https://fonts.cdnfonts.com/css/arca-majora-3"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "@nightingale-elements/": "https://cdn.jsdelivr.net/npm/@nightingale-elements/"
+        }
+      }
+    </script>
+    <!-- Import the component -->
+    <script type="module">
+      import "@nightingale-elements/nightingale-sequence@latest";
+    </script>
+    
+
+  </head>
+  <body>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    
+    <div class="container-fluid">
+      <!-- Bootstrap row for the header -->
+      <div class="row custom-header">
+        <!-- Bootstrap column for the logo -->
+        <div class="col-md-2">
+          <img
+            src="/static/images/gangagen-logo.jpg"
+            alt="Logo"
+            width="199"
+            height="61"
+            class="d-inline-block align-text-top"
+          />
+        </div>
+
+        <!-- Bootstrap column for the site title -->
+        <div class="col-md-8 site-title">
+          <h5>GangaGen AI EctoLysin - Powered by Orbuculum</h5>
+        </div>
+
+        <div class="col-md-2 site-title">
+          {% if user.is_authenticated %}
+              <!-- Display access_code only if the user is authenticated -->
+              <h4 class="access_code"> Access Code: <span class="code"> {{ access_code }}  </span></h4>
+          {% else %}
+          {% comment %} <div class="alert alert-danger" role="alert">
+           {{error}}
+          </div> {% endcomment %}
+        
+          {% endif %}
+        </div>
+      </div>
+      <!-- End of header row -->
+    </div>
+    <!-- End of container -->
+
+    {% block body %} {% endblock body %}
+
+     <!-- DataTables JS -->
+     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    
+     <script>
+        jQuery(document).ready(function($) {
+            $('#myTable').DataTable({
+                dom: '<"top"l>rt<"bottom"ip><"clear">',
+                lengthMenu: [ [10], [10] ],
+                initComplete: function () {
+                    // Create a custom search input and append it to the top left corner
+                   // $(`<div class="mb-3 top-actions">
+                      //  <label for="exampleFormControlInput1" class="form-label">Enter Name</label>
+                     //   <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter Name">
+                   // </div>`).appendTo('.top');
+                    
+                    
+                    
+                    
+                    // Apply DataTables search functionality to the custom input
+                    $('#exampleFormControlInput1').on('keyup', function() {
+                        $('#myTable').DataTable().search(this.value).draw();
+                    });
+                    
+                    $('.dataTables_length').hide();
+                     
+                },
+                columnDefs: [
+            {
+                targets: [0], // Assuming "name" is the first column (index 0)
+                searchable: true
+            },
+            {
+                targets: [1, 2, 3], // Assuming other columns are not searchable
+                searchable: false
+            }
+        ]
+            });
+            // $("#newSearchPlace").html($(".dataTables_filter"));
+        });
+
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+      });
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap JavaScript and dependencies (Optional) -->
+    <!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

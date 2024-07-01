@@ -1,0 +1,236 @@
+{% extends "layout.html" %}
+
+{% block layout-body %}
+<div class="container-fluid">
+  <!-- Your input and select fields -->
+  <!-- Modal for displaying protein sequence -->
+<div class="modal fade" id="sequenceModal" tabindex="-1" role="dialog" aria-labelledby="sequenceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sequenceModalLabel">Protein Sequence</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="proteinSequence"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-lg-4 mt-4">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Enter Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter Name"
+        />
+      </div>
+    </div>
+    <div class="col-lg-3 mt-4">
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Select Organism</label>
+        <select class="form-control" id="organism-select">
+          {% for organism_name in organism_names %}
+          <option>{{ organism_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4 mt-4">
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Select Domain</label>
+        <select class="form-control" id="domain-select">
+          {% for domain_name in domains_names %}
+          <option>{{ domain_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-1 mt-5">
+      <button type="button" class="btn btn-light custom-button" id="search-button">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-search custon-icon"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+          />
+        </svg>
+      </button>
+    </div>
+</div>
+
+  <!-- Table for displaying protein data -->
+  <div class="row">
+    <div class="col-md-12 mt-4">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Organism</th>
+            <th>Domains</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for protein in page_obj %}
+<tr>
+    <td>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="{{ protein.id }}" />
+            <label class="form-check-label" for="{{ protein.id }}" data-toggle="modal" data-target="#sequenceModal" data-sequence="{{ protein.sequence }}">{{ protein.metadata_accession }}</label>
+        </div>
+    </td>
+    <td>{{ protein.name }}</td>
+    <td>{{ protein.source_organism_fullName }}</td>
+
+    <td>
+        <div class="outer-rectangle" style="width: {{ protein.length }}px; background-color: #B6C4B6;height:40px; border-radius:25px; border:0.8px solid #627254">
+            <div class="inner-rectangle-{{ forloop.counter }}" style="position:relative; width: calc((({{ protein.end }} - {{ protein.start }}) / {{ protein.length }}) * 100%); height:38px; border-radius:25px; left: calc({{ protein.start }} / {{ protein.length }} * 100%); background-color: #65B741;"></div>
+        </div>
+    </td>
+</tr>
+<script>
+    tippy('.inner-rectangle-{{ forloop.counter }}', {
+        content: "{{ protein.source_organism_fullName }}-{{ protein.entries_accession }} ({{ protein.start }}-{{ protein.end }})",
+        placement: 'left',
+    });
+</script>
+{% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="row">
+    <div class="col-md-8 lg-10 mt-4">
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <!-- Previous page button -->
+          {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          {% endif %}
+
+          <!-- Numbered pages -->
+          {% for num in page_obj.paginator.page_range %}
+          {% if num >= page_obj.number and num <= page_obj.number|add:2 %}
+          <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+
+          <!-- Next page button -->
+          {% if page_obj.has_next %}
+          <li class="page-item">
+            <a
+              class="page-link"
+              href="?page={{ page_obj.next_page_number }}"
+              aria-label="Next"
+            >
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <div class="col-md-4 mt-4">
+      <button type="button" class="btn btn-outline-success export-button">
+        Export
+      </button>
+      <button type="button" class="btn btn-outline-success save-button">
+        Save
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  // JavaScript to handle displaying protein sequence in the modal
+  $(document).ready(function() {
+    $('#sequenceModal').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget); // Button that triggered the modal
+      var sequence = button.data('sequence'); // Extract info from data-* attributes
+      var modal = $(this);
+      modal.find('#proteinSequence').text(sequence);
+    });
+  });
+  document.getElementById("search-button").addEventListener("click", function() {
+      // Get the selected values from the dropdowns
+      var name = document.getElementById("exampleInputEmail1").value;
+      var organism = document.getElementById("organism-select").value;
+      var domain = document.getElementById("domain-select").value;
+  
+      // Make an AJAX request to the search_proteins view with the selected values
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "{% url 'search_proteins' %}?name=" + name + "&organism=" + organism + "&domain=" + domain, true);
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState == 4) {
+              if (xhr.status == 200) {
+                  // Parse the JSON response
+                  var data = JSON.parse(xhr.responseText);
+                  // Update the table with the search results
+                  updateTable(data);
+              } else {
+                  // Handle error responses
+                  console.error("Error fetching search results: " + xhr.status);
+              }
+          }
+      };
+      xhr.send();
+  });
+  
+  // Function to update the table with search results
+  function updateTable(data) {
+    var tableBody = document.querySelector("tbody");
+    // Clear existing table rows
+    tableBody.innerHTML = "";
+
+    // Check if any documents were found
+    if (data.response.numFound > 0) {
+        // Extract the documents array
+        var docs = data.response.docs;
+
+        // Loop through the documents and add rows to the table
+        docs.forEach(function(doc) {
+            var row = "<tr>";
+            row += "<td><div class='form-check'><input class='form-check-input' type='checkbox' id='checkbox1' /><label class='form-check-label' for='checkbox1' data-toggle='modal' data-target='#sequenceModal' data-sequence='" + doc.sequence + "'>" + doc.metadata_accession + "</label></div></td>";
+            row += "<td>" + doc.name[0] + "</td>";
+            row += "<td>" + doc.source_organism_fullName[0] + "</td>";
+
+            // Assuming 'length', 'start', and 'end' are all present in doc
+            var length = doc.length;
+            var start = doc.start[0];
+            var end = doc.end[0];
+            var width = (end - start) / length * 100;
+            row += "<td><div class='outer-rectangle' style='width: " + length + "px; background-color: #B6C4B6; height:40px; border-radius:25px; border:0.8px solid #627254'>";
+            row += "<div class='inner-rectangle' style='position:relative; width: calc(" + width + "%); height:38px; border-radius:25px; left: calc(" + (start / length * 100) + "%); background-color: #65B741;'></div>";
+            row += "</div></td>";
+
+            row += "</tr>";
+            tableBody.innerHTML += row;
+        });
+    } else {
+        // Display a message if no documents were found
+        tableBody.innerHTML = "<tr><td colspan='4'>No results found.</td></tr>";
+    }
+}
+  
+  </script>
+{% endblock layout-body %}

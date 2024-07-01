@@ -1,0 +1,296 @@
+/* body {
+    background: #FFFFFF;
+    ;
+    font-family: verdana;
+
+    .header{
+        background: #FFFFFF;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+  } 
+  */
+
+@font-face {
+  font-family: "Arca Majora 3 Heavy";
+  src: local("Arca Majora 3 Heavy"),
+    url("./fonts/ArcaMajora3-Bold.woff") format("woff");
+  /* Add additional formats if needed (e.g., 'ttf', 'otf') */
+}
+
+.custom-header {
+  background-color: #ffffff; /* Set your desired background color */
+  /* color: #ffffff; Set your desired text color */
+  padding: 15px 0; /* Adjust the padding as needed */
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  max-height: 40px; /* Set your desired height for the logo */
+}
+
+.site-title {
+  text-align: center;
+  color: #309201;
+  margin-top: 15px;
+
+  h5 {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 700;
+    font-family: "Arca Majora 3 Heavy";
+  }
+}
+
+.centered-card {
+  width: 816px;
+  height: 416px;
+  background: #f9f1ea;
+  margin: auto; /* Center the card horizontally */
+  margin-top: 150px !important; /* Add top margin as needed */
+  /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); Add drop shadow */
+  padding: 20px; /* Adjust padding as needed */
+  border-radius: 10px;
+  /* font-family: 'Arca Majora 3 Heavy', sans-serif; Apply the custom font */
+}
+
+.title-1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 32px;
+  font-family: "Arca Majora 3 Heavy";
+}
+
+.title-2 {
+  margin-top: 40px;
+  font-size: 24px;
+  font-weight: 700px;
+  line-height: 24px;
+  font-family: "Arca Majora 3 Heavy";
+}
+.login-buttton {
+  background: #309201;
+  border-radius: 20px;
+  font-family: "Roboto";
+  font-size: 15px;
+}
+
+.modal.custom .login-modal .modal-content .modal-header {
+  justify-content: end !important;
+  border-bottom: none !important;
+  button {
+    border: none !important;
+    background: #ffff !important;
+    color: #a5a5a5;
+  }
+}
+
+.modal.custom .login-modal .modal-content {
+  width: 481px !important;
+  height: 368px !important;
+  
+}
+
+/* .modal.custom .login-modal .modal-body {
+  .title-3 {
+    width: 221px !important;
+    height: 24px !important;
+  }
+  .input-code {
+    width: 381px !important;
+    height: 38px !important;
+  }
+} */
+
+/* Sidebar */
+.sidebar {
+  /* position: fixed; */
+  top: 90px;
+  bottom: 0;
+  left: 0;
+  padding: 58px 0 0; /* Height of navbar */
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+  width: 245px;
+  z-index: 600;
+}
+
+.nav-link .active {
+  background-color: #309201;
+}
+.nav-link {
+  color: #646464 !important;
+}
+.sidebar ul li .nav-link:hover {
+  background-color: #309201;
+  color: #ffffff !important;
+}
+.sidebar .nav-pills .nav-link.active {
+  background-color: #309201;
+  color: #ffffff !important;
+}
+
+#myTable_wrapper .dataTables_length {
+  display: none !important;
+}
+.top-actions {
+  display: flex;
+  flex-direction: row;
+}
+
+.access_code {
+
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  font-family: "Arca Majora 3 Heavy";
+  color: #309201;
+}
+
+.code {
+  word-spacing: 2px;
+}
+.sidebar-options {
+  height: 56rem;
+}
+
+.custom-button {
+  background-color: #309201;
+  color: white;
+}
+
+/* Custom styles for the search icon */
+.custom-icon {
+  fill: white;
+}
+.database table{
+  font-family: "Roboto" !important;
+  font-size: 16px !important;
+ 
+}
+.table-header{
+  height: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.table-header tr th {
+  background-color: #FFDEBC;
+  font-family: "Roboto";
+  font-weight: normal !important;
+}
+
+.table-body tr td {
+  color: #646464;
+  height: 40px;
+}
+
+.page-link{
+  color: #309201;
+ 
+}
+.page-link:active{
+  background-color: #309201 !important;
+  color: #ffffff;
+}
+.active {
+  .page-link {
+    background-color: #309201 !important;
+    border-color: #309201 !important;
+   
+  }
+  
+}
+.export-button{
+  border-radius: 25px;
+    width: 129px;
+    height: 50px;
+    color: #309201;
+}
+.export-button:hover{
+  border-radius: 25px;
+    width: 129px;
+    height: 50px;
+    background-color: #309201 !important;
+    color: #ffffff;
+}
+.save-button{
+  margin: 0px 0px 0px 20px;
+  border-radius: 25px;
+    width: 129px;
+    height: 50px;
+    color: #309201;
+}
+.save-button:hover{
+  border-radius: 25px;
+    width: 129px;
+    height: 50px;
+    background-color: #309201 !important;
+    color: #ffffff;
+}
+thead tr th {
+  background-color: #FFDEBC !important;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  height: 50px !important;
+}
+
+/* Style the tooltip container */
+.nightingale-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Style the tooltip text */
+.nightingale-tooltip::after {
+  content: attr(title);
+  position: absolute;
+  visibility: hidden;
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* Show the tooltip text on hover */
+.inner-rectangle:hover::after {
+  visibility: visible;
+}
+
+.outer-rectangle {
+  width: 100%; /* Adjusted to fill the entire table cell */
+  /* Adjusted height to fit within the table cell */
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 25px;
+  position: relative;
+}
+.inner-rectangle {
+  height: 100%;
+  border-radius: 25px;
+  background-color: #ffcc00; /* Highlight color */
+  position: absolute;
+  left: 0; /* Adjusted to start from the left edge of the outer rectangle */
+  /* width: calc(((140 - {{ protein.start }}) / 180) * 100%); */
+}
+/* @media (max-width: 991.98px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+.sidebar .active {
+  border-radius: 5px;
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+
+  #proteinSequence {
+    word-wrap: break-word !important;
+  }
